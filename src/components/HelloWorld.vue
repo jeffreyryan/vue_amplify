@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
-    <h1>Dude, Hello from amplify{{ msg }}</h1>
+    <h1>Dude, Hello from amplify...{{ msg }}</h1>
+    <h2>{{a}} x {{b}} = </h2>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -27,6 +28,29 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+    <input type="text" id="input" v-model="mymessage">
+    <p>The value of the input is: {{mymessage}}</p>
+    <p>The reversed value of the input is: {{reversedMessage}}</p>
+    <ul>
+	<!--<li v-for="name in names" v-text="name"></li>-->
+    </ul>
+    <input type="text" id="nameInput" v-model="newName">
+    <button v-on:click="addName">Add Name</button>
+    <button @click="addName">Add Name this way</button>
+    <br>
+    <button v-bind:title="title">Hover Over Me</button>
+    <button :title="title">Hover Over Me</button>
+    <br>
+    <button :class="{ 'is-loading': isLoading}" @click="toggleClass">Click Me </button>
+    <br>
+    <h2>All Tasks</h2>
+    <ul>
+       <li v-for="task in tasks" v-text="task.description"></li>
+    </ul>
+    <h2>Incomplete Tasks</h2>
+    <ul>
+       <li v-for="task in incompleteTasks" v-text="task.description"></li>
+    </ul>
   </div>
 </template>
 
@@ -35,7 +59,47 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+
+  data() {
+    return {
+      a:'6',
+      b:'7',
+      mymessage: 'dude',
+      names : ['Jayden','Jay'],
+      newName : '',
+      title : 'Now the title is being set thru js.',
+      isLoading: false,
+      tasks : [
+        { description: 'Talk to accountant', completed: false},
+        { description: 'Do eye exam',completed: false},
+        { description: 'start the welder', completed: true}
+      ]
+    }
+  },
+
+  methods: {
+    addName() {
+      this.names.push(this.newName);
+      this.newName='';
+    },
+
+    toggleClass() {
+      this.isLoading= true;
+    },
+
+  },
+
+  computed: {
+    reversedMessage() {
+      return this.mymessage.split('').reverse().join('');
+    },
+    incompleteTasks(){
+      return this.tasks.filter(task => ! task.completed);
+    }
   }
+
+    
 }
 </script>
 
@@ -55,4 +119,6 @@ li {
 a {
   color: #42b983;
 }
+
+.is-loading { background : red; }
 </style>
