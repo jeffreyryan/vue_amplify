@@ -39,7 +39,7 @@
     <button @click="addName">Add Name this way</button>
     <br>
     <button v-bind:title="title">Hover Over Me</button>
-    <button :title="title">Hover Over Me</button>
+    <button :title="title">Hover Over Me dude</button>
     <br>
     <button :class="{ 'is-loading': isLoading}" @click="toggleClass">Click Me </button>
     <br>
